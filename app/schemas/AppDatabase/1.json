@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7521caa7269ccf44f0e350265771ea0b",
+    "identityHash": "8024ea67a13aaa6ba636acbd46a0cb8c",
     "entities": [
       {
         "tableName": "User",
@@ -23,12 +23,56 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "sales",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ID_SALES` INTEGER NOT NULL, `QUANTITY` INTEGER NOT NULL, `AMOUNT` REAL NOT NULL, `CREATION_DATE` INTEGER NOT NULL, `DATE_OF_SALE` INTEGER NOT NULL, PRIMARY KEY(`ID_SALES`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "ID_SALES",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "QUANTITY",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "AMOUNT",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creationDate",
+            "columnName": "CREATION_DATE",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateOfSale",
+            "columnName": "DATE_OF_SALE",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ID_SALES"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7521caa7269ccf44f0e350265771ea0b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8024ea67a13aaa6ba636acbd46a0cb8c')"
     ]
   }
 }

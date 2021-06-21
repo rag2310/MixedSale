@@ -1,8 +1,10 @@
+package com.example.mixedsale.data.db.dao
+
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.mixedsale.model.User
+import com.example.mixedsale.data.model.User
 
 @Dao
 interface UserDao {
