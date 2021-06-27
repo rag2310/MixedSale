@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.mixedsale"
+        applicationId "com.rago.mixedsale"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

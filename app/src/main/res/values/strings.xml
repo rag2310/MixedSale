@@ -10,4 +10,6 @@
     <string name="product">Product</string>
     <string name="debt">Debt</string>
     <string name="statistics">Statistics</string>
+    <string name="client">Client</string>
+    <string name="pay">Pay</string>
 </resources>

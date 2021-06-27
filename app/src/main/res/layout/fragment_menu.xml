@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_menu"
     tools:context=".ui.menu.MenuFragment">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
@@ -38,13 +38,15 @@
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="1.0">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView2"
             style="@style/card_menu"
-            app:layout_constraintBottom_toTopOf="@+id/materialCardView6"
+            app:layout_constraintBottom_toTopOf="@+id/materialCardView3"
             app:layout_constraintEnd_toStartOf="@+id/materialCardView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +63,7 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
             style="@style/card_menu"
-            app:layout_constraintBottom_toTopOf="@+id/materialCardView5"
+            app:layout_constraintBottom_toTopOf="@+id/materialCardView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/materialCardView2"
@@ -75,13 +77,46 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView3"
+            style="@style/card_menu"
+            app:layout_constraintBottom_toTopOf="@+id/materialCardView6"
+            app:layout_constraintEnd_toStartOf="@+id/materialCardView4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
+
+            <TextView
+                style="@style/text_menu"
+                android:text="@string/pay"
+                app:drawableTopCompat="@drawable/pay_top" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView4"
+            style="@style/card_menu"
+            app:layout_constraintBottom_toTopOf="@+id/materialCardView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView3"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+            <TextView
+                style="@style/text_menu"
+                android:text="@string/client"
+                app:drawableTopCompat="@drawable/client_top" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView6"
             style="@style/card_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/materialCardView5"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView3">
 
             <TextView
                 style="@style/text_menu"
@@ -97,7 +132,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/materialCardView6"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView4">
 
             <TextView
                 style="@style/text_menu"

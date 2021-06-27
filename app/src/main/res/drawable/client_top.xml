@@ -1,0 +1,8 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/ic_client"
+        android:width="@dimen/dimen_card_drawable"
+        android:height="@dimen/dimen_card_drawable"
+        />
+</layer-list>
