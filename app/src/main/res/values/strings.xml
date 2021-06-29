@@ -12,4 +12,6 @@
     <string name="statistics">Statistics</string>
     <string name="client">Client</string>
     <string name="pay">Pay</string>
+    <string name="add">Add</string>
+    <string name="products">Products</string>
 </resources>

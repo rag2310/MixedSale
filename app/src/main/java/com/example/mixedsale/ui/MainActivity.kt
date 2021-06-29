@@ -10,12 +10,14 @@ import com.example.mixedsale.SalesApplication
 import com.example.mixedsale.data.model.Sales
 import com.example.mixedsale.ui.sales.SalesViewModel
 import com.example.mixedsale.ui.sales.SalesViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val salesViewModel: SalesViewModel by viewModels {
         SalesViewModelFactory((application as SalesApplication).repository)
@@ -23,8 +25,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
     }
 
 

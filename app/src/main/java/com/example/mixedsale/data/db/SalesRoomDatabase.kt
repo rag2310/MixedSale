@@ -7,19 +7,22 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.mixedsale.data.db.converter.Converts
+import com.example.mixedsale.data.db.dao.ProductDao
 import com.example.mixedsale.data.db.dao.SalesDao
 import com.example.mixedsale.data.db.dao.UserDao
+import com.example.mixedsale.data.model.Product
 import com.example.mixedsale.data.model.Sales
 import com.example.mixedsale.data.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-@Database(entities = [User::class, Sales::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Sales::class, Product::class], version = 1, exportSchema = false)
 @TypeConverters(Converts::class)
 abstract class SalesRoomDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun salesDao(): SalesDao
+    abstract fun productDao(): ProductDao
 
     private class SalesDatabaseCallback(
         private val scope: CoroutineScope
@@ -61,7 +64,7 @@ abstract class SalesRoomDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: SalesRoomDatabase? = null
-        private const val DB_NAME = "sales_db"
+        private const val DB_NAME = "MIXED_SALES"
 
         fun getDatabase(context: Context, scope: CoroutineScope): SalesRoomDatabase =
             INSTANCE ?: INSTANCE ?: synchronized(this) {
