@@ -12,10 +12,10 @@ data class Product(
     val id: Long = 0,
 
     @ColumnInfo(name = "NAME")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "PRICE")
-    val price: Double,
+    var price: Double,
 
     @ColumnInfo(name = "CREATION_DATE")
     val creationDate: Date
