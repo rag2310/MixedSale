@@ -30,4 +30,6 @@ object DatabaseModule {
     fun provideProductDao(database: SalesRoomDatabase): ProductDao {
         return database.productDao()
     }
+
+
 }

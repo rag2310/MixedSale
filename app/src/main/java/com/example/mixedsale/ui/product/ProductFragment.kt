@@ -1,10 +1,12 @@
 package com.example.mixedsale.ui.product
 
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mixedsale.data.model.Product
@@ -12,7 +14,6 @@ import com.example.mixedsale.databinding.DialogFormProductBinding
 import com.example.mixedsale.databinding.FragmentProductBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 
 @AndroidEntryPoint
@@ -27,6 +28,7 @@ class ProductFragment : Fragment() {
     ): View {
         binding = FragmentProductBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+        binding.viewModel = productViewModel
         return binding.root
     }
 
@@ -40,8 +42,31 @@ class ProductFragment : Fragment() {
         productViewModel.allProducts.observe(viewLifecycleOwner, { products ->
             products?.let {
                 adapter.submitList(it)
-                println("Count ${it.size}")
             }
+        })
+
+        productViewModel.searchAllProducts.observe(viewLifecycleOwner, { products ->
+            products?.let {
+                adapter.submitList(it)
+            }
+        })
+
+        binding.productSearchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    productViewModel.searchProduct("%$query%")
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    productViewModel.searchProduct("%$newText%")
+                }
+                return true
+            }
+
         })
 
         binding.addProduct.setOnClickListener {
@@ -49,25 +74,32 @@ class ProductFragment : Fragment() {
                 LayoutInflater.from(requireContext()),
                 null, false
             )
-            binding.product =
-                Product(name = "", price = 0.0, creationDate = Calendar.getInstance().time)
-            MaterialAlertDialogBuilder(requireContext())
+
+            binding.apply {
+                product = Product(name = "", price = 0.0)
+                errorProductName = null
+                errorProductPrice = null
+            }
+
+            val dialog = MaterialAlertDialogBuilder(requireContext())
                 .setView(binding.root)
-                .setPositiveButton("Ok") { _, _ ->
-                    val product: Product = binding.product!!
-                    productViewModel.insert(product)
-                }.setNegativeButton("NO") { dialog, which ->
-                    println("---------> $dialog -> $which")
-                }
                 .show()
+
+            binding.okAction.setOnClickListener {
+                binding.product?.let {
+                    if (it.name.isEmpty()) {
+                        binding.errorProductName = "Empty field"
+                        return@let
+                    }
+                    if (it.price == 0.0) {
+                        binding.errorProductPrice = "Price is zero"
+                        return@let
+                    }
+                    productViewModel.insert(it)
+                    dialog.dismiss()
+                }
+            }
+            binding.cancelAction.setOnClickListener { dialog.dismiss() }
         }
-        /*binding.addProduct.setOnClickListener {
-                val product = Product(
-                    name = "Coca cola",
-                    price = 12.0,
-                    creationDate = Calendar.getInstance().time
-                )
-                productViewModel.insert(product)
-            }*/
     }
 }

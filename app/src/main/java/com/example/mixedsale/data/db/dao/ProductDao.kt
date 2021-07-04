@@ -10,6 +10,9 @@ interface ProductDao {
     @Query("SELECT * FROM PRODUCTS")
     fun allProducts(): Flow<List<Product>>
 
+    @Query("SELECT * FROM PRODUCTS WHERE NAME LIKE :name")
+    fun searchProducts(name: String): Flow<List<Product>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertProduct(vararg product: Product)
 

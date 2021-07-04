@@ -5,9 +5,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
-import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
-import androidx.databinding.InverseBindingListener
+import androidx.core.text.isDigitsOnly
+import androidx.databinding.*
+import com.google.android.material.chip.ChipGroup
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,6 +23,7 @@ object Adapters {
     @InverseBindingAdapter(attribute = "price")
     @JvmStatic
     fun getPrice(view: EditText): Double {
+        if (view.text.equals(".")) return 0.0
         return view.text.toString().toDouble()
     }
 
@@ -40,8 +41,10 @@ object Adapters {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (s.toString().trim().isNotEmpty())
-                    attrChange.onChange()
+                println("afterTextChanged ${s.toString()}")
+                if (s.toString() != ".")
+                    if (s.toString().trim().isNotEmpty())
+                        attrChange.onChange()
             }
         })
     }
@@ -64,4 +67,24 @@ object Adapters {
         view.text = "C$$data"
     }
     //CONVERT DOUBLE TO STRING DATA-BINDING ONE-WAY - END
+
+    @BindingAdapter("filterChips")
+    @JvmStatic
+    fun ChipGroup.setFilterChips(id: Int) {
+        this.check(id)
+    }
+
+    @InverseBindingAdapter(attribute = "filterChips")
+    @JvmStatic
+    fun ChipGroup.getFilterChips(): Int {
+        return this.checkedChipId
+    }
+
+    @BindingAdapter("filterChipsAttrChanged")
+    @JvmStatic
+    fun ChipGroup.setListeners(
+        attrChange: InverseBindingListener
+    ) {
+        this.setOnCheckedChangeListener { _, _ -> attrChange.onChange() }
+    }
 }

@@ -18,5 +18,5 @@ data class Product(
     var price: Double,
 
     @ColumnInfo(name = "CREATION_DATE")
-    val creationDate: Date
+    val creationDate: Date = Calendar.getInstance().time
 )

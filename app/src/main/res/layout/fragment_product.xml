@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.mixedsale.ui.product.ProductViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +18,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton"
             style="@style/button_back"
+            android:layout_marginTop="28dp"
             android:stateListAnimator="@null"
             app:icon="@drawable/ic_baseline_arrow_back_24"
             app:iconGravity="textStart"
@@ -28,7 +32,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/roboto"
             android:text="@string/products"
@@ -41,56 +45,75 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:contentDescription="@null"
             android:src="@drawable/product_top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/productSearchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="15dp"
+            android:layoutDirection="rtl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2">
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:queryHint="Search Product" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_all"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="All" />
+        <!-- <com.google.android.material.chip.ChipGroup
+             android:id="@+id/chipGroup"
+             filterChips="@={viewModel.checkedBtnObs}"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="8dp"
+             android:layout_marginEnd="8dp"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_name"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Name" />
+             <com.google.android.material.chip.Chip
+                 android:id="@+id/chip_all"
+                 style="@style/Widget.MaterialComponents.Chip.Choice"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:checkable="true"
+                 android:checked="false"
+                 android:text="@string/all"
+                 tools:checked="true" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_price"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Price" />
-        </com.google.android.material.chip.ChipGroup>
+             <com.google.android.material.chip.Chip
+                 android:id="@+id/chip_name"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/name"
+                 android:checkable="true"
+                 android:checked="false"
+                 app:chipIcon="@drawable/ic_baseline_arrow_upward_24"
+                 tools:checked="false" />
+
+             <com.google.android.material.chip.Chip
+                 android:id="@+id/chip_price"
+                 style="@style/Widget.MaterialComponents.Chip.Choice"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:checkable="true"
+                 android:checked="false"
+                 android:text="@string/price"
+                 tools:checked="false" />
+         </com.google.android.material.chip.ChipGroup>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            app:layout_constraintTop_toBottomOf="@+id/productSearchView"
             tools:listitem="@layout/row_product" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

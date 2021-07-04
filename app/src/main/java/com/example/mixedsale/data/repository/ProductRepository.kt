@@ -11,6 +11,8 @@ class ProductRepository @Inject constructor(private val productDao: ProductDao) 
 
     val allProducts: Flow<List<Product>> = productDao.allProducts()
 
+    fun searchProducts(name: String) = productDao.searchProducts(name)
+
     @WorkerThread
     suspend fun insert(product: Product) {
         productDao.insertProduct(product)

@@ -20,4 +20,7 @@
     <string name="price_test">C$12</string>
     <string name="name">Name</string>
     <string name="price">Price</string>
+    <string name="all">All</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
 </resources>

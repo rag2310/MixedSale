@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="a1">
+        <attr name="bgColor" format="color"/>
+        <attr name="cardBgColor" format="color"/>
+        <attr name="primaryTextColor" format="color"/>
+        <attr name="secondaryTextColor" format="color"/>
+        <attr name="hintTextColor" format="color"/>
+        <attr name="bgBottombarColor" format="color"/>
+        <attr name="indicatorColor" format="color"/>
+    </declare-styleable>
+</resources>
