@@ -16,7 +16,7 @@
         tools:context=".ui.product.ProductFragment">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
+            android:id="@+id/backMenu"
             style="@style/button_back"
             android:layout_marginTop="28dp"
             android:stateListAnimator="@null"
@@ -124,6 +124,18 @@
             android:layout_marginBottom="20dp"
             android:contentDescription="@string/add"
             android:src="@drawable/ic_baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/delete_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/add"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

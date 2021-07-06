@@ -19,6 +19,6 @@ interface ProductDao {
     @Update
     suspend fun updateProduct(vararg product: Product)
 
-    @Query("DELETE FROM PRODUCTS")
-    suspend fun deleteAll()
+    @Delete
+    suspend fun deleteProduct(vararg product: Product)
 }

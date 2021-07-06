@@ -3,10 +3,14 @@ package com.example.mixedsale.ui.utils
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.text.isDigitsOnly
 import androidx.databinding.*
+import com.example.mixedsale.R
+import com.example.mixedsale.data.model.Product
+import com.example.mixedsale.ui.utils.animators.UsefulAnimations
 import com.google.android.material.chip.ChipGroup
 import java.text.SimpleDateFormat
 import java.util.*
@@ -67,6 +71,20 @@ object Adapters {
         view.text = "C$$data"
     }
     //CONVERT DOUBLE TO STRING DATA-BINDING ONE-WAY - END
+
+    @BindingAdapter("android:onClickChecked")
+    @JvmStatic
+    fun setOnClick(view: View, product: Product) {
+        view.setOnClickListener {
+            product.selection = !product.selection
+            val checkView = view.rootView.findViewById<ImageView>(R.id.checkedView)
+            if (product.selection) {
+                UsefulAnimations.circularRevealVisible(checkView)
+            } else {
+                UsefulAnimations.circularRevealInvisible(checkView)
+            }
+        }
+    }
 
     @BindingAdapter("filterChips")
     @JvmStatic

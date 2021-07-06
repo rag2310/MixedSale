@@ -13,17 +13,30 @@ class ProductViewModel @Inject constructor(private val repository: ProductReposi
     ViewModel() {
 
     var searchAllProducts: MutableLiveData<List<Product>> = MutableLiveData<List<Product>>()
-    val allProducts: LiveData<List<Product>> = repository.allProducts.asLiveData()
 
-    var checkedBtnObs = MutableLiveData(2131296365)
+    private var search = MutableLiveData<Boolean>(false)
 
     fun insert(product: Product) = viewModelScope.launch {
         repository.insert(product)
     }
 
-    fun searchProduct(name: String) = viewModelScope.launch {
-        repository.searchProducts(name).collect {
-            searchAllProducts.postValue(it)
+    fun searchProduct(name: String?) = viewModelScope.launch {
+        if (name == null) {
+            repository.allProducts.collect {
+                searchAllProducts.postValue(it)
+            }
+        } else {
+            repository.searchProducts(name).collect {
+                searchAllProducts.postValue(it)
+            }
+        }
+        search.postValue(true)
+    }
+
+    fun deleteProducts(list: List<Product>) = viewModelScope.launch {
+        val listDelete = list
+        listDelete.forEach { product ->
+            repository.delete(product)
         }
     }
 }

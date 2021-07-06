@@ -23,4 +23,5 @@
     <string name="all">All</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
+    <string name="selected">Selected</string>
 </resources>

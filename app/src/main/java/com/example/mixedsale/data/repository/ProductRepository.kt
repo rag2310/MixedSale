@@ -17,4 +17,9 @@ class ProductRepository @Inject constructor(private val productDao: ProductDao) 
     suspend fun insert(product: Product) {
         productDao.insertProduct(product)
     }
+
+    @WorkerThread
+    suspend fun delete(product: Product) {
+        productDao.deleteProduct(product)
+    }
 }

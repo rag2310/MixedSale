@@ -2,6 +2,7 @@ package com.example.mixedsale.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.util.*
 
@@ -19,4 +20,11 @@ data class Product(
 
     @ColumnInfo(name = "CREATION_DATE")
     val creationDate: Date = Calendar.getInstance().time
-)
+) {
+    @Ignore
+    var selection: Boolean = false
+
+    fun handleSelection() {
+        selection = !selection
+    }
+}

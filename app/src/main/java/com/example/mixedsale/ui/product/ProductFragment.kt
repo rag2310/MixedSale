@@ -1,6 +1,5 @@
 package com.example.mixedsale.ui.product
 
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mixedsale.data.model.Product
 import com.example.mixedsale.databinding.DialogFormProductBinding
 import com.example.mixedsale.databinding.FragmentProductBinding
+import com.example.mixedsale.ui.utils.animators.SlideInRightAnimator
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,15 +36,15 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ProductListAdapter(requireContext())
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        productViewModel.allProducts.observe(viewLifecycleOwner, { products ->
-            products?.let {
-                adapter.submitList(it)
+        val adapter = ProductListAdapter(requireActivity())
+        binding.recyclerView.apply {
+            this.adapter = adapter
+            layoutManager = LinearLayoutManager(requireContext())
+            itemAnimator = SlideInRightAnimator().apply {
+                addDuration = 300
             }
-        })
+        }
+        productViewModel.searchProduct(null)
 
         productViewModel.searchAllProducts.observe(viewLifecycleOwner, { products ->
             products?.let {
@@ -54,6 +55,7 @@ class ProductFragment : Fragment() {
         binding.productSearchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                println("onQueryTextSubmit")
                 query?.let {
                     productViewModel.searchProduct("%$query%")
                 }
@@ -61,12 +63,24 @@ class ProductFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                println("onQueryTextChange $newText")
                 newText?.let {
-                    productViewModel.searchProduct("%$newText%")
+                    if (newText == "") {
+                        //LIMPIAMOS LA LISTA PARA ELIMINAR LA SELECCIONES
+                        productViewModel.searchAllProducts.value?.size?.let {
+                            adapter.notifyItemRangeRemoved(
+                                0,
+                                it
+                            )
+                            adapter.notifyDataSetChanged()
+                            productViewModel.searchProduct(null)
+                        }
+                    } else {
+                        productViewModel.searchProduct("%$newText%")
+                    }
                 }
                 return true
             }
-
         })
 
         binding.addProduct.setOnClickListener {
@@ -100,6 +114,24 @@ class ProductFragment : Fragment() {
                 }
             }
             binding.cancelAction.setOnClickListener { dialog.dismiss() }
+        }
+
+        binding.deleteProduct.setOnClickListener {
+            productViewModel.deleteProducts(adapter.getListDelete())
+            adapter.clearListDelete()
+            productViewModel.searchAllProducts.value?.size?.let {
+                adapter.notifyItemRangeRemoved(
+                    0,
+                    it
+                )
+                adapter.notifyDataSetChanged()
+                productViewModel.searchProduct(null)
+            }
+        }
+
+        binding.backMenu.setOnClickListener {
+            val navController = findNavController()
+            navController.popBackStack()
         }
     }
 }
